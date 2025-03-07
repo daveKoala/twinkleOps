@@ -1,0 +1,10 @@
+{
+  "globalHeaders": {
+    "cache-controll": "private no-store",
+    "app-name": "Tooth Fairy"
+  },
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["*.{jpg,gif,png}", "assets/*"]
+  }
+}

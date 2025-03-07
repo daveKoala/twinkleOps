@@ -1,0 +1,74 @@
+name: $(TeamProject)_$(SourceBranchName)_$(Date:yyyy-mm-dd)_$(Rev:r)
+
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+parameters:
+  - name: deployment_token # Required as first property.
+    displayName: deployment token for Azure Static Web App # Human-readable name for the parameter.
+    type: string
+    default: '1bd70debb27805782bac3b6730df2acd07cf3f736d835e6eeb86cc759042851304-e4af794a-16e9-4712-8b36-2b882e2cc74d003042303010d603'
+  - name: npm_audit_level
+    displayName: NPM severity level
+    default: moderate
+    values:
+      - low
+      - moderate
+      - high
+      - critical
+
+variables:
+  - name: node_version
+    value: '20.x'
+  - group: moodimetrics-app-dev
+
+stages:
+  - stage: build_test
+    displayName: Build and test
+    jobs:
+      - job: build_test
+        displayName: Build and Deploy Job
+
+        steps:
+          - checkout: self
+            submodules: true
+          - script: echo '$(Build.BuildNumber)'
+          - task: NodeTool@0
+            inputs:
+              versionSpec: ${{ variables.node_version }} # Specify the Node.js version compatible with your project
+
+          - script: |
+              npm install
+              npm run build
+            displayName: 'Install dependencies and build Vue.js app'
+
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              customCommand: 'audit --audit-level=${{ parameters.npm_audit_level}}'
+
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: '$(Build.BinariesDirectory)'
+              includeRootFolder: true
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              replaceExistingArchive: true
+              verbose: true
+
+  - stage: build_and_deploy
+    displayName: Deploy to Static Web App
+    jobs:
+      - job: deploy
+        steps:
+          - task: AzureStaticWebApp@0
+            displayName: Deploying
+            inputs:
+              app_location: '/' # App source code path relative to cwd
+              output_location: 'dist' # Built app content directory relative to app_location
+              azure_static_web_apps_api_token: ${{ parameters.deployment_token }}
+            env:
+              VITE_SITE_BUILD_ID: $(Build.BuildNumber)
