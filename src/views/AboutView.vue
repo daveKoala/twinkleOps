@@ -41,11 +41,11 @@ const kidStore = useKidStore()
 
     <h2>3) Why This Project</h2>
     <p>
-      Exists Fun Afternoon Challenge: I built this small project in a burst of creative
-      energy—combining a love of steampunk aesthetics, fairy tales, and the excitement kids feel
-      when they lose a tooth. It’s a lighthearted experiment that turned into a fun tool to track
-      magical visits. For My Kids: Nothing beats the joy of seeing children’s faces light up with
-      wonder! This site adds a sprinkle of extra excitement when the Tooth Fairy makes a stop.
+      Fun Afternoon Challenge: I built this small project in a burst of creative energy—combining a
+      love of steampunk aesthetics, fairy tales, and the excitement kids feel when they lose a
+      tooth. It’s a lighthearted experiment that turned into a fun tool to track magical visits. For
+      My Kids, nothing beats the joy of seeing children’s faces light up with wonder! This site adds
+      a sprinkle of extra excitement when the Tooth Fairy makes a stop.
     </p>
     <p>
       It’s simple, free, and purely a passion project to spread a bit of gear-laced, fairy-dust joy.

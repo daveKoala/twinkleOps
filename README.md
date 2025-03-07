@@ -1,6 +1,14 @@
-# fairy-crm
+# TwinkleOps
 
-This template should help get you started developing with Vue 3 in Vite.
+I built this small project in a burst of creative energy—combining a love of steampunk aesthetics, fairy tales, and the excitement kids feel when they lose a tooth.
+
+Self imposed constraints:
+
+- Avoid additional CSS frameworks
+- Use only local storage
+- Explore the browsers own database functions (indexDB)
+- Use Azure devOps pipleines for CI/CD pipelines
+- Use GenAI (ChatGPT and Claude) to explore different approaches like, 'list methods for storing and querying data clinet side' then itertativly build on that and avoid promtes like, 'I want function to save data locally'
 
 ## Recommended IDE Setup
 
